@@ -10,7 +10,8 @@ void getGrades(int (&grades)[5]) {
   for (int i = 0; i < 5; i++) {
     cout << "Enter grade #" << i + 1 << ": ";
     while (true) {
-      if (!(cin >> value)) {
+      cin >> value;
+      if (cin.fail()) {
         cout << "please enter an integer value for grade #" << i + 1 << "\n";
         cin.clear();
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
