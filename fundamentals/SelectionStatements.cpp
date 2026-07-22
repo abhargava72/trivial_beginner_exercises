@@ -1,4 +1,5 @@
 #include <cmath>
+#include <cstdlib>
 #include <iostream>
 #include <limits>
 
@@ -468,6 +469,203 @@ int main() {
   }
   default:
     cout << "invalid character\n";
+    break;
+  }
+  // valid triangle
+  cout << "enter three sides of the triangle\n";
+  int side_1, side_2, side_3;
+  cin >> side_1 >> side_2 >> side_3;
+  if ((side_1 + side_2 > side_3) && (side_2 + side_3 > side_1) &&
+      (side_1 + side_3 > side_2)) {
+    cout << "valid triangle\n";
+    if (side_1 == side_2 && side_2 == side_3) {
+      cout << "equilateral triangle\n";
+    } else if (side_1 == side_2 || side_2 == side_3 || side_1 == side_3) {
+      cout << "isosceles triangle\n";
+    } else {
+      cout << "scalene triangle\n";
+    }
+  } else {
+    cout << "invalid triangle\n";
+  }
+
+  // valid date
+  cout << "input day, month, year";
+  int day, month, year;
+  cin >> day >> month >> year;
+  if (month <= 0 || month > 12) {
+    cout << "invalid month\n";
+  } else {
+    string validity;
+    if (month == 2) {
+      if (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) {
+        validity = (day >= 1 && day <= 29) ? "valid" : "invalid";
+      } else {
+        validity = (day >= 1 && day <= 28) ? "valid" : "invalid";
+      }
+    } else if (month == 1 || month == 3 || month == 5 || month == 7 ||
+               month == 8 || month == 10 || month == 12) {
+      validity = (day >= 1 && day <= 31) ? "valid" : "invalid";
+    } else {
+      validity = (day >= 1 && day <= 30) ? "valid" : "invalid";
+    }
+    cout << month << "," << day << " is a " << validity << " date\n";
+  }
+
+  // discount calculator
+  cout << "enter purchase amount";
+  double purchase_amount;
+  cin >> purchase_amount;
+  int discount_percentage;
+  if (purchase_amount >= 500) {
+    discount_percentage = 20;
+  } else if (purchase_amount >= 200) {
+    discount_percentage = 10;
+  } else if (purchase_amount >= 100) {
+    discount_percentage = 5;
+  } else {
+    discount_percentage = 0;
+  }
+  double discount_amount = 0.01 * discount_percentage * purchase_amount;
+  double final_price = purchase_amount - discount_amount;
+  cout << "discount: " << discount_percentage << "%\n";
+  cout << "discount amount: " << "$" << discount_amount << "\n";
+  cout << "final price: " << "$" << final_price << "\n";
+
+  // electricity bill calculator
+  cout << "enter electricity usage\n";
+  double usage;
+  double cost = 0;
+  cin >> usage;
+  if (usage <= 100) {
+    cost = usage * 0.10;
+  } else if (usage <= 300) {
+    cost = 100 * 0.10;
+    cost += (usage - 100) * 0.15;
+  } else {
+    cost = 100 * 0.10;
+    cost += 200 * 0.15;
+    cost += (usage - 300) * 0.20;
+  }
+  cout << "total is $" << cost << "\n";
+
+  // loan elgibility calculator
+  cout << "enter age, income, credit score";
+  int credit_score;
+  cin >> age >> income >> credit_score;
+  if (age >= 18) {
+    if (income >= 30'000) {
+      if (credit_score >= 650) {
+        cout << "loan eligible\n";
+      } else {
+        cout << "invalid credit score\n";
+      }
+    } else {
+      cout << "invalid income\n";
+    }
+  } else {
+    cout << "invalid age, too young\n";
+  }
+
+  // passsword strength checker
+  cout << "enter password";
+  std::string password;
+  cin >> password;
+  int const PASSWORD_LENGTH = 8;
+  if (password.length() >= PASSWORD_LENGTH) {
+    bool uppercase_letter = false, special_digit = false, number = false;
+    for (int i = 0; i < password.length(); i++) {
+      int ascii_character = static_cast<int>(password.at(i));
+      if (ascii_character >= 65 && ascii_character <= 90) {
+        uppercase_letter = true;
+      } else if (ascii_character >= 48 && ascii_character <= 57) {
+        number = true;
+      } else {
+        switch (ascii_character) {
+        case 32:
+        case 33:
+        case 34:
+        case 35:
+        case 36:
+        case 37:
+        case 38:
+        case 39:
+        case 40:
+        case 41:
+        case 42:
+        case 43:
+        case 44:
+        case 45:
+        case 46:
+        case 47:
+        case 58:
+        case 59:
+        case 60:
+        case 61:
+        case 62:
+        case 63:
+        case 64:
+        case 91:
+        case 92:
+        case 93:
+        case 94:
+        case 95:
+        case 96:
+        case 123:
+        case 124:
+        case 125:
+        case 126:
+          special_digit = true;
+          break;
+        }
+      }
+    }
+    if (!uppercase_letter) {
+      cout << "invalid password, no uppercase letter\n";
+    } else if (!special_digit) {
+      cout << "invalid password, no special digit\n";
+    } else if (!number) {
+      cout << "invalid password, no numerical digits\n";
+    } else {
+      cout << "valid password\n";
+    }
+
+  } else {
+    cout << "invalid password, password is too short\n";
+  }
+
+  // rock paper scissors
+  cout << "enter rock, paper, scissors as 1, 2, 3 respectively";
+  short unsigned int user_choice;
+  cin >> user_choice;
+  short unsigned int computer_choice = (rand() % 3) + 1;
+  if (user_choice - computer_choice == 0) {
+    cout << "its a tie\n";
+  }
+  switch (user_choice) {
+  case 1:
+    if (computer_choice == 2) {
+      cout << "computer wins, paper beats rock\n";
+    } else {
+      cout << "user wins, rock beats scissors\n";
+    }
+    break;
+  case 2:
+    if (computer_choice == 1) {
+      cout << "user wins, paper beats rock\n";
+    } else {
+      cout << "computer wins, scissors beats paper\n";
+    }
+    break;
+  case 3:
+    if (computer_choice == 1) {
+      cout << "computer wins, rock beats scissors\n";
+    } else {
+      cout << "user wins, scissors beats paper";
+    }
+    break;
+  default:
+    cout << "invalid option\n";
     break;
   }
   return 0;
