@@ -4,6 +4,8 @@
 
 using std::cin;
 using std::cout;
+using std::numeric_limits;
+using std::streamsize;
 
 void getGrades(int (&grades)[5]) {
   int value;
@@ -14,14 +16,14 @@ void getGrades(int (&grades)[5]) {
       if (cin.fail()) {
         cout << "please enter an integer value for grade #" << i + 1 << "\n";
         cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         continue;
       }
       if (value < 0 || value > 100) {
         cout << "please enter an appropriate integer value for grade #" << i + 1
              << "\n";
         cin.clear();
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         continue;
       }
       break;
